@@ -6,10 +6,13 @@ ENV PROJECT_GEMS_DIR /opt/wedding-site-gems
 CMD echo "This container will exit"
 
 RUN mkdir -p $PROJECT_BUILD_DIR && \
-  chown jekyll $PROJECT_BUILD_DIR
+  chown jekyll $PROJECT_BUILD_DIR && \
+  mkdir -p $PROJECT_GEMS_DIR && \
+  chown jekyll $PROJECT_GEMS_DIR
+
 ADD ./Gemfile ${PROJECT_GEMS_DIR}/Gemfile
 WORKDIR $PROJECT_GEMS_DIR
-RUN bundle install
+RUN sudo -u jekyll /bin/bash -c 'bundle install'
 
 ADD . $PROJECT_SRC_DIR
 RUN jekyll build --source $PROJECT_SRC_DIR --destination $PROJECT_BUILD_DIR
