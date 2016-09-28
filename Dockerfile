@@ -3,7 +3,10 @@ FROM jekyll/jekyll
 ENV PROJECT_SRC_DIR /opt/wedding-site-src
 ENV PROJECT_BUILD_DIR /opt/wedding-site/_site
 ENV PROJECT_GEMS_DIR /opt/wedding-site-gems
-CMD echo "This container will exit"
+
+# Exit container at boot
+ENTRYPOINT []
+CMD echo "This container should exit when run"
 
 RUN mkdir -p $PROJECT_BUILD_DIR && \
   chown jekyll $PROJECT_BUILD_DIR && \
